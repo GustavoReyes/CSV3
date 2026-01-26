@@ -18,12 +18,14 @@ A modern web application for uploading, analyzing, and visualizing device connec
 ## Tech Stack
 
 ### Frontend
+
 - **Vue.js 3**: Progressive JavaScript framework
 - **Tailwind CSS**: Utility-first CSS framework for styling
 - **HTML5**: Semantic markup
 - **JavaScript (ES6+)**: Modern JavaScript features
 
 ### Backend
+
 - **Express.js**: Node.js web framework
 - **multer**: Middleware for handling file uploads
 - **csv-parser**: CSV parsing library
@@ -46,6 +48,7 @@ CSV3/
 
 1. Clone or download the project
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -53,6 +56,7 @@ npm install
 ## Running the Application
 
 Start the development server:
+
 ```bash
 node app.js
 ```
@@ -71,10 +75,12 @@ The server will start on `http://localhost:3000`
 ## CSV File Format
 
 Your CSV file should contain:
+
 - A column named "Connection Status" (or similar) with values: `ONLINE`, `OFFLINE`, `OFFLINE for more than 30 days`
 - Additional columns with device information (Name, IP Address, Last Seen, etc.)
 
 Example CSV format:
+
 ```
 Device Name,IP Address,Connection Status,Last Seen
 Router-01,192.168.1.1,ONLINE,2026-01-26
@@ -85,14 +91,17 @@ Laptop-03,192.168.1.100,OFFLINE for more than 30 days,2025-11-20
 ## API Endpoints
 
 ### POST `/api/obtener-datos`
+
 Upload and parse a CSV file.
 
 **Request:**
+
 - Method: `POST`
 - Content-Type: `multipart/form-data`
 - Body: Form data with file field named `archivoCsv`
 
 **Response:**
+
 - Success (200): Array of objects representing CSV rows
 - Error (400): `{ error: "Falta archivo" }` - No file provided
 - Error (500): `{ error: "Error procesando el archivo" }` - File processing error
@@ -100,6 +109,7 @@ Upload and parse a CSV file.
 ## Vue.js Component Data & Methods
 
 ### Data Properties
+
 - `datos`: Array containing parsed CSV data
 - `busqueda`: Search query string
 - `filtroEstado`: Current status filter (TODOS, ONLINE, OFFLINE, OFFLINE for more than 30 days)
@@ -108,11 +118,13 @@ Upload and parse a CSV file.
 - `colStatus`: Column name for connection status
 
 ### Computed Properties
+
 - `columnas`: Array of column names from the CSV
 - `stats`: Object containing counts of online, offline, and long-term offline devices
 - `listaFiltrada`: Filtered list of devices based on search and status filter
 
 ### Methods
+
 - `cargarDatos()`: Handles file upload and API call
 - `getTailwindBadge()`: Returns Tailwind CSS class for status badges
 
