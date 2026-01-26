@@ -1,0 +1,172 @@
+/* --- VARIABLES & RESET --- */
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --bg-body: #f0f2f5;
+    --text-main: #333;
+    --text-muted: #7f8c8d;
+    --border: #ddd;
+    
+    /* Colores de Estado */
+    --st-online: #27ae60;
+    --st-offline: #c0392b;
+    --st-long: #546e7a;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-body);
+    padding: 20px;
+    color: var(--text-main);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- CONTROLES Y INPUTS --- */
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+input[type="text"], select {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    flex-grow: 1;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.error-msg {
+    color: var(--st-offline);
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.results-info {
+    margin-left: auto;
+    color: var(--text-muted);
+}
+
+/* --- DASHBOARD (Grid) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive */
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    border-bottom: 4px solid transparent; /* Base para el borde de color */
+}
+
+.card h4 {
+    margin: 0 0 10px 0;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.card .number {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Variantes de tarjetas */
+.card-green { color: var(--st-online); border-color: var(--st-online); }
+.card-red   { color: var(--st-offline); border-color: var(--st-offline); }
+.card-grey  { color: var(--st-long); border-color: var(--st-long); }
+.card-blue  { color: var(--primary); border-color: var(--primary); }
+
+/* Estado vacío (Empty State) */
+.empty-state {
+    margin-top: 50px;
+    text-align: center;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.empty-state h2 {
+    color: #aaa;
+    font-weight: 300;
+}
+
+/* --- TABLA --- */
+.table-wrap {
+    background: white;
+    border-radius: 10px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+th {
+    background: #34495e;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f8f9fa;
+}
+
+/* --- BADGES (Etiquetas de estado) --- */
+.badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.st-online  { background-color: var(--st-online); }
+.st-offline { background-color: var(--st-offline); }
+.st-long    { background-color: var(--st-long); }
