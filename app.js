@@ -36,7 +36,7 @@ app.post('/api/obtener-datos', upload.single('archivoCsv'), (req, res) => {
             res.status(500).json({ error: 'Error procesando el archivo' });
         });
 });
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor listo en http://localhost:${PORT}`);
 });

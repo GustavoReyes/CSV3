@@ -58,7 +58,7 @@ createApp({
                         .filter(row => row[this.colManufacturer] === this.manufacturer)
                         .map(row => {
                             const keys = Object.keys(row);
-                            // Formatear fechas columnas RAW 4 y 5 (índices 3 y 4)
+                            // Formatear fechas columnas RAW 5 y 6 (índices 4 y 5)
                             if (keys.length > 4) row[keys[4]] = this.formatearFecha(row[keys[4]]);
                             if (keys.length > 5) row[keys[5]] = this.formatearFecha(row[keys[5]]);
 
