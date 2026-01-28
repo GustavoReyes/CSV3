@@ -128,9 +128,7 @@
             <option value="TODOS">Todos los Estados</option>
             <option value="ONLINE">ONLINE</option>
             <option value="OFFLINE">OFFLINE</option>
-            <option value="OFFLINE for more than 30 days">
-              OFFLINE +30 Días
-            </option>
+            <option value="Offline +30">OFFLINE +30 Días</option>
           </select>
 
           <div
@@ -164,7 +162,10 @@
                   :key="index"
                   class="bg-white border-b hover:bg-gray-50 transition-colors"
                 >
-                  <td v-for="col in columnas" class="px-6 py-4">
+                  <td
+                    v-for="col in columnas"
+                    class="px-6 py-4 whitespace-nowrap"
+                  >
                     <span
                       v-if="col === colStatus"
                       :class="getTailwindBadge(fila[col])"

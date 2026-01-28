@@ -7,7 +7,9 @@ createApp({
             filtroEstado: 'TODOS',
             cargando: false,
             errorMsg: '',
-            colStatus: 'Connection Status'
+            colStatus: 'Connection Status',
+            manufacturer: 'Amazon',
+            colManufacturer: 'Manufacturer'
         }
     },
     computed: {
@@ -21,7 +23,7 @@ createApp({
                 const status = row[this.colStatus];
                 if (status === 'ONLINE') s.online++;
                 else if (status === 'OFFLINE') s.offline++;
-                else if (status === 'OFFLINE for more than 30 days') s.offline30++;
+                else if (status === 'Offline +30') s.offline30++;
             });
             return s;
         },
@@ -52,7 +54,20 @@ createApp({
                 const json = await res.json();
 
                 if (res.ok) {
-                    this.datos = json;
+                    this.datos = json
+                        .filter(row => row[this.colManufacturer] === this.manufacturer)
+                        .map(row => {
+                            const keys = Object.keys(row);
+                            // Formatear fechas columnas RAW 4 y 5 (índices 3 y 4)
+                            if (keys.length > 4) row[keys[4]] = this.formatearFecha(row[keys[4]]);
+                            if (keys.length > 5) row[keys[5]] = this.formatearFecha(row[keys[5]]);
+
+                            if (keys.length > 2) {
+                                delete row[keys[2]];
+                            }
+                            if (row[this.colStatus] === 'OFFLINE for more than 30 days') row[this.colStatus] = 'Offline +30';
+                            return row;
+                        });
                 } else {
                     this.errorMsg = json.error || 'Error al cargar';
                 }
@@ -62,6 +77,19 @@ createApp({
             } finally {
                 this.cargando = false;
             }
+        },
+        formatearFecha(fechaStr) {
+            if (!fechaStr) return fechaStr;
+            const fecha = new Date(fechaStr);
+            if (isNaN(fecha.getTime())) return fechaStr;
+
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const anio = fecha.getFullYear();
+            const horas = String(fecha.getHours()).padStart(2, '0');
+            const minutos = String(fecha.getMinutes()).padStart(2, '0');
+
+            return `${dia}-${mes}-${anio} ${horas}:${minutos}`;
         },
         // Función actualizada para devolver clases de Tailwind
         getTailwindBadge(status) {
